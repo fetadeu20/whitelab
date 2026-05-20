@@ -1,80 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White Lab</title>
-
+    <title>White Lab - Suplementos de Alta Performance</title>
+    <!-- SEO & Performance: Meta descrição e preconexão de fontes se necessário -->
+    <meta name="description" content="White Lab - Suplementos alimentares de alta performance para força, energia e recuperação muscular.">
+    
     <link rel="stylesheet" href="style.css">
+    <!-- Performance: Defer no script garante que o HTML carregue sem travar a renderização -->
+    <script src="script.js" defer></script>
 </head>
-
 <body>
 
     <header>
-
         <div class="logo-area">
-            <img src="assets/logo.png" alt="Logo White Lab">
+            <!-- Performance: Adicionado width/height explícitos para evitar deslocamento de layout (CLS) -->
+            <img src="assets/logo.png" alt="Logo White Lab" width="40" height="40" loading="eager">
             <h1>WHITE <span>LAB</span></h1>
         </div>
-
         <nav>
-            <a href="#">Início</a>
-            <a href="#">Produtos</a>
-            <a href="#">Contato</a>
+            <a href="#" aria-label="Ir para o início">Início</a>
+            <a href="#" aria-label="Ver produtos">Produtos</a>
+            <a href="#" aria-label="Entrar em contato">Contato</a>
         </nav>
-
     </header>
 
-    <section class="banner">
-        <h2>Performance no limite</h2>
-    </section>
+    <main>
+        <section class="banner">
+            <h2>Performance no limite</h2>
+        </section>
 
-    <section class="produtos">
+        <!-- NOVO: PAINEL DE CONTROLE (BUSCA + ABAS) -->
+        <div class="controle-produtos">
+            <div class="busca-container">
+                <input type="text" id="input-busca" placeholder="Buscar produto..." oninput="filtrarEBuscar()" aria-label="Buscar produtos">
+                <span class="icone-busca">🔍</span>
+            </div>
 
-        <div class="produto">
-            <img src="img/prod1.png" alt="">
-            <h3>Whey Protein</h3>
-            <p>Suplemento proteico</p>
-            <button onclick="comprar('Whey Protein')">Comprar</button>
+            <div class="abas-container">
+                <button class="aba-btn ativa" data-categoria="todos" onclick="alternarAba(this)" aria-label="Filtrar por todos os produtos">Todos</button>
+                <button class="aba-btn" data-categoria="suplementos" onclick="alternarAba(this)" aria-label="Filtrar por suplementos">Suplementos</button>
+                <button class="aba-btn" data-categoria="energia" onclick="alternarAba(this)" aria-label="Filtrar por energia e força">Energia & Força</button>
+                <button class="aba-btn" data-categoria="snacks" onclick="alternarAba(this)" aria-label="Filtrar por snacks">Snacks</button>
+            </div>
         </div>
 
-        <div class="produto">
-            <img src="img/prod2.png" alt="">
-            <h3>Creatina</h3>
-            <p>Força e explosão</p>
-            <button onclick="comprar('Creatina')">Comprar</button>
-        </div>
+        <!-- SEÇÃO DE PRODUTOS -->
+        <section class="produtos" id="grade-produtos" aria-label="Grade de produtos">
+            
+            <!-- Performance: Imagens abaixo da dobra usam loading="lazy" para economizar banda -->
+            <div class="produto categoria-suplementos">
+                <img src="img/prod1.png" alt="Pote de Whey Protein White Lab" width="200" height="200" loading="lazy">
+                <h3>Whey Protein</h3>
+                <p>Suplemento proteico</p>
+                <button onclick="comprar('Whey Protein')">Comprar</button>
+            </div>
 
-        <div class="produto">
-            <img src="img/prod3.png" alt="">
-            <h3>Pré-Treino</h3>
-            <p>Energia máxima</p>
-            <button onclick="comprar('Pré-Treino')">Comprar</button>
-        </div>
+            <div class="produto categoria-energia">
+                <img src="img/prod2.png" alt="Pote de Creatina Monohidratada" width="200" height="200" loading="lazy">
+                <h3>Creatina</h3>
+                <p>Força e explosão</p>
+                <button onclick="comprar('Creatina')">Comprar</button>
+            </div>
 
-        <div class="produto">
-            <img src="img/prod4.png" alt="">
-            <h3>Barra Proteica</h3>
-            <p>Snack saudável</p>
-            <button onclick="comprar('Barra Proteica')">Comprar</button>
-        </div>
+            <div class="produto categoria-energia">
+                <img src="img/prod3.png" alt="Pote de Pré-Treino Ultra Energia" width="200" height="200" loading="lazy">
+                <h3>Pré-Treino</h3>
+                <p>Energia máxima</p>
+                <button onclick="comprar('Pré-Treino')">Comprar</button>
+            </div>
 
-        <div class="produto">
-            <img src="img/prod5.png" alt="">
-            <h3>BCAA</h3>
-            <p>Recuperação muscular</p>
-            <button onclick="comprar('BCAA')">Comprar</button>
-        </div>
+            <div class="produto categoria-snacks">
+                <img src="img/prod4.png" alt="Barra Proteica de Chocolate" width="200" height="200" loading="lazy">
+                <h3>Barra Proteica</h3>
+                <p>Snack saudável</p>
+                <button onclick="comprar('Barra Proteica')">Comprar</button>
+            </div>
 
-    </section>
+            <div class="produto categoria-suplementos">
+                <img src="img/prod5.png" alt="Pote de Cápsulas BCAA" width="200" height="200" loading="lazy">
+                <h3>BCAA</h3>
+                <p>Recuperação muscular</p>
+                <button onclick="comprar('BCAA')">Comprar</button>
+            </div>
+
+        </section>
+    </main>
 
     <footer>
-        <p>© 2025 White Lab - Todos os direitos reservados</p>
+        <p>© 2026 White Lab - Todos os direitos reservados</p>
     </footer>
 
-    <script src="script.js"></script>
-
 </body>
-
 </html>
