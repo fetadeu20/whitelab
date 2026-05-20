@@ -1,96 +1,265 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White Lab - Suplementos de Alta Performance</title>
-    <!-- SEO & Performance: Meta descrição e preconexão de fontes se necessário -->
-    <meta name="description" content="White Lab - Suplementos alimentares de alta performance para força, energia e recuperação muscular.">
-    
+
+    <title>White Lab</title>
+
     <link rel="stylesheet" href="style.css">
-    <!-- Performance: Defer no script garante que o HTML carregue sem travar a renderização -->
-    <script src="script.js" defer></script>
+
 </head>
+
 <body>
 
+    <!-- HEADER -->
     <header>
+
         <div class="logo-area">
-            <!-- Performance: Adicionado width/height explícitos para evitar deslocamento de layout (CLS) -->
-            <img src="assets/logo.png" alt="Logo White Lab" width="40" height="40" loading="eager">
-            <h1>WHITE <span>LAB</span></h1>
+
+            <!-- LOGO -->
+            <img src="logo.jpeg" alt="Logo White Lab">
+
+            <h1>
+                WHITE <span>LAB</span>
+            </h1>
+
         </div>
+
+        <!-- MENU -->
         <nav>
-            <a href="#" aria-label="Ir para o início">Início</a>
-            <a href="#" aria-label="Ver produtos">Produtos</a>
-            <a href="#" aria-label="Entrar em contato">Contato</a>
+
+            <a href="#">Início</a>
+
+            <a href="#produtos">Produtos</a>
+
+            <a href="#contato">Contato</a>
+
         </nav>
+
     </header>
 
-    <main>
-        <section class="banner">
-            <h2>Performance no limite</h2>
-        </section>
+    <!-- BANNER -->
+    <section class="banner">
 
-        <!-- NOVO: PAINEL DE CONTROLE (BUSCA + ABAS) -->
-        <div class="controle-produtos">
-            <div class="busca-container">
-                <input type="text" id="input-busca" placeholder="Buscar produto..." oninput="filtrarEBuscar()" aria-label="Buscar produtos">
-                <span class="icone-busca">🔍</span>
-            </div>
+        <div class="banner-texto">
 
-            <div class="abas-container">
-                <button class="aba-btn ativa" data-categoria="todos" onclick="alternarAba(this)" aria-label="Filtrar por todos os produtos">Todos</button>
-                <button class="aba-btn" data-categoria="suplementos" onclick="alternarAba(this)" aria-label="Filtrar por suplementos">Suplementos</button>
-                <button class="aba-btn" data-categoria="energia" onclick="alternarAba(this)" aria-label="Filtrar por energia e força">Energia & Força</button>
-                <button class="aba-btn" data-categoria="snacks" onclick="alternarAba(this)" aria-label="Filtrar por snacks">Snacks</button>
-            </div>
+            <h2>
+                PERFORMANCE NO LIMITE 🔥
+            </h2>
+
+            <p>
+                Os melhores suplementos para aumentar sua performance.
+            </p>
+
         </div>
 
-        <!-- SEÇÃO DE PRODUTOS -->
-        <section class="produtos" id="grade-produtos" aria-label="Grade de produtos">
-            
-            <!-- Performance: Imagens abaixo da dobra usam loading="lazy" para economizar banda -->
-            <div class="produto categoria-suplementos">
-                <img src="img/prod1.png" alt="Pote de Whey Protein White Lab" width="200" height="200" loading="lazy">
-                <h3>Whey Protein</h3>
-                <p>Suplemento proteico</p>
-                <button onclick="comprar('Whey Protein')">Comprar</button>
-            </div>
+    </section>
 
-            <div class="produto categoria-energia">
-                <img src="img/prod2.png" alt="Pote de Creatina Monohidratada" width="200" height="200" loading="lazy">
-                <h3>Creatina</h3>
-                <p>Força e explosão</p>
-                <button onclick="comprar('Creatina')">Comprar</button>
-            </div>
+    <!-- BOTÕES -->
+    <section class="acoes">
 
-            <div class="produto categoria-energia">
-                <img src="img/prod3.png" alt="Pote de Pré-Treino Ultra Energia" width="200" height="200" loading="lazy">
-                <h3>Pré-Treino</h3>
-                <p>Energia máxima</p>
-                <button onclick="comprar('Pré-Treino')">Comprar</button>
-            </div>
+        <button onclick="pesquisarProduto()">
+            🔍 Pesquisar Produto
+        </button>
 
-            <div class="produto categoria-snacks">
-                <img src="img/prod4.png" alt="Barra Proteica de Chocolate" width="200" height="200" loading="lazy">
-                <h3>Barra Proteica</h3>
-                <p>Snack saudável</p>
-                <button onclick="comprar('Barra Proteica')">Comprar</button>
-            </div>
+        <button onclick="mostrarTodos()">
+            📦 Mostrar Todos
+        </button>
 
-            <div class="produto categoria-suplementos">
-                <img src="img/prod5.png" alt="Pote de Cápsulas BCAA" width="200" height="200" loading="lazy">
-                <h3>BCAA</h3>
-                <p>Recuperação muscular</p>
-                <button onclick="comprar('BCAA')">Comprar</button>
-            </div>
+        <button onclick="limparCarrinho()">
+            🗑 Limpar Carrinho
+        </button>
 
-        </section>
-    </main>
+        <button onclick="finalizarCompra()">
+            💳 Finalizar Compra
+        </button>
 
-    <footer>
-        <p>© 2026 White Lab - Todos os direitos reservados</p>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos" id="produtos">
+
+        <!-- WHEY -->
+        <div class="produto">
+
+            <button class="favorito" onclick="favoritar(this)">
+                🤍
+            </button>
+
+            <img src="whey.jpeg" alt="Whey Protein">
+
+            <h3>
+                Whey Protein
+            </h3>
+
+            <p>
+                Suplemento proteico premium para ganho muscular.
+            </p>
+
+            <button onclick="comprar('Whey Protein')">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- BCAA -->
+        <div class="produto">
+
+            <button class="favorito" onclick="favoritar(this)">
+                🤍
+            </button>
+
+            <img src="bcaa.jpeg" alt="BCAA">
+
+            <h3>
+                BCAA
+            </h3>
+
+            <p>
+                Recuperação muscular avançada para seus treinos.
+            </p>
+
+            <button onclick="comprar('BCAA')">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- PRÉ TREINO -->
+        <div class="produto">
+
+            <button class="favorito" onclick="favoritar(this)">
+                🤍
+            </button>
+
+            <img src="pretreino.jpeg" alt="Pré Treino">
+
+            <h3>
+                Pré-Treino
+            </h3>
+
+            <p>
+                Energia máxima e foco total para o treino.
+            </p>
+
+            <button onclick="comprar('Pré-Treino')">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- BARRINHA -->
+        <div class="produto">
+
+            <button class="favorito" onclick="favoritar(this)">
+                🤍
+            </button>
+
+            <img src="barrinha.jpeg" alt="Barrinha">
+
+            <h3>
+                Barrinha Proteica
+            </h3>
+
+            <p>
+                Snack saudável e nutritivo para o dia.
+            </p>
+
+            <button onclick="comprar('Barrinha Proteica')">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- CREATINA -->
+        <div class="produto">
+
+            <button class="favorito" onclick="favoritar(this)">
+                🤍
+            </button>
+
+            <img src="creatina.jpeg" alt="Creatina">
+
+            <h3>
+                Creatina
+            </h3>
+
+            <p>
+                Mais força e desempenho em todos os exercícios.
+            </p>
+
+            <button onclick="comprar('Creatina')">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- GLUTAMINA -->
+        <div class="produto">
+
+            <button class="favorito" onclick="favoritar(this)">
+                🤍
+            </button>
+
+            <img src="glutamina.jpeg" alt="Glutamina">
+
+            <h3>
+                Glutamina
+            </h3>
+
+            <p>
+                Auxilia na recuperação muscular e imunidade.
+            </p>
+
+            <button onclick="comprar('Glutamina')">
+                Comprar
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- SOBRE -->
+    <section class="sobre">
+
+        <h2>
+            Sobre a White Lab
+        </h2>
+
+        <p>
+            A White Lab traz os melhores suplementos para atletas e pessoas que desejam elevar sua performance ao máximo.
+        </p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contato">
+
+        <h3>
+            WHITE LAB
+        </h3>
+
+        <p>
+            © 2025 Todos os direitos reservados.
+        </p>
+
+        <p>
+            Instagram: @whitelab
+        </p>
+
+        <p>
+            WhatsApp: (11) 99999-9999
+        </p>
+
     </footer>
 
+    <!-- SCRIPT -->
+    <script src="script.js"></script>
+
 </body>
+
 </html>
