@@ -264,6 +264,71 @@ footer {
     }
 }
 
+/* ==========================================================================
+   PAINEL DE CONTROLE (BUSCA + ABAS)
+   ========================================================================== */
+.controle-produtos {
+  max-width: 1200px;
+  margin: 40px auto 10px auto;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.busca-container {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+}
+
+.busca-container input {
+  width: 100%;
+  padding: 14px 20px 14px 45px;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  outline: none;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.busca-container input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+}
+
+.icone-busca {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.abas-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Esconder produtos de forma fluida */
+.produto.escondido {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .controle-produtos {
+    margin-top: 25px;
+  }
+}
+
 /* Ajustes finos para Celulares Pequenos */
 @media (max-width: 480px) {
     nav a {
