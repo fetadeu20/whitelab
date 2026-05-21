@@ -1,93 +1,187 @@
+// ========================================
+// CARRINHO
+// ========================================
+
 let carrinho = [];
 
-/* =========================
-   NOTIFICAÇÃO
-========================= */
 
-function mostrarNotificacao(texto) {
+// ========================================
+// PRODUTOS
+// ========================================
 
-    const notificacao = document.createElement("div");
+const produtos = {
 
-    notificacao.classList.add("notificacao");
+    "Whey Protein": {
+        preco: 129.90,
+        imagem: "whey.jpeg"
+    },
 
-    notificacao.innerText = texto;
+    "BCAA": {
+        preco: 89.90,
+        imagem: "bcaa.jpeg"
+    },
 
-    document.body.appendChild(notificacao);
+    "Pré-Treino": {
+        preco: 99.90,
+        imagem: "pretreino.jpeg"
+    },
 
-    setTimeout(() => {
+    "Barrinha Proteica": {
+        preco: 14.90,
+        imagem: "barrinha.jpeg"
+    },
 
-        notificacao.classList.add("mostrar");
+    "Creatina": {
+        preco: 119.90,
+        imagem: "creatina.jpeg"
+    },
 
-    }, 100);
+    "Glutamina": {
+        preco: 79.90,
+        imagem: "glutamina.jpeg"
+    }
+};
 
-    setTimeout(() => {
 
-        notificacao.classList.remove("mostrar");
+// ========================================
+// COMPRAR PRODUTO
+// ========================================
 
-        setTimeout(() => {
+function comprar(nome) {
 
-            notificacao.remove();
-
-        }, 500);
-
-    }, 2500);
-}
-
-/* =========================
-   COMPRAR PRODUTO
-========================= */
-
-function comprar(produto) {
-
-    carrinho.push(produto);
+    carrinho.push(nome);
 
     atualizarCarrinho();
 
-    mostrarNotificacao(produto + " adicionado ao carrinho 🛒");
+    mostrarNotificacao(nome + " adicionado ao carrinho!");
 }
 
-/* =========================
-   ATUALIZAR CARRINHO
-========================= */
+
+// ========================================
+// ATUALIZAR CARRINHO
+// ========================================
 
 function atualizarCarrinho() {
 
-    console.clear();
+    const lista =
+        document.getElementById("lista-carrinho");
 
-    console.log("🛒 CARRINHO");
-    console.log("----------------");
+    const contador =
+        document.getElementById("contador-carrinho");
 
-    carrinho.forEach((item, index) => {
+    const total =
+        document.getElementById("total-carrinho");
 
-        console.log((index + 1) + " - " + item);
+    if (!lista) return;
 
+    lista.innerHTML = "";
+
+    let valorTotal = 0;
+
+    carrinho.forEach((produto, index) => {
+
+        valorTotal += produtos[produto].preco;
+
+        lista.innerHTML += `
+
+            <div class="item-carrinho">
+
+                <div class="info-carrinho">
+
+                    <img 
+                        src="${produtos[produto].imagem}" 
+                        alt="${produto}"
+                        class="miniatura-carrinho"
+                    >
+
+                    <div>
+
+                        <h4>${produto}</h4>
+
+                        <p>
+                            R$ ${produtos[produto].preco.toFixed(2)}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button onclick="removerProduto(${index})">
+                    X
+                </button>
+
+            </div>
+
+        `;
     });
 
-    console.log("----------------");
-    console.log("Total: " + carrinho.length);
+    contador.innerText = carrinho.length;
+
+    total.innerText = valorTotal.toFixed(2);
 }
 
-/* =========================
-   LIMPAR CARRINHO
-========================= */
+
+// ========================================
+// REMOVER PRODUTO
+// ========================================
+
+function removerProduto(index) {
+
+    const nome = carrinho[index];
+
+    carrinho.splice(index, 1);
+
+    atualizarCarrinho();
+
+    atualizarResumoCompra();
+
+    mostrarNotificacao(nome + " removido!");
+}
+
+
+// ========================================
+// LIMPAR CARRINHO
+// ========================================
 
 function limparCarrinho() {
 
-    if (carrinho.length === 0) {
-
-        mostrarNotificacao("Carrinho já está vazio!");
-
-        return;
-    }
-
     carrinho = [];
 
-    mostrarNotificacao("Carrinho limpo 🗑");
+    atualizarCarrinho();
+
+    atualizarResumoCompra();
+
+    mostrarNotificacao("Carrinho limpo!");
 }
 
-/* =========================
-   FINALIZAR COMPRA
-========================= */
+
+// ========================================
+// ABRIR CARRINHO
+// ========================================
+
+function abrirCarrinho() {
+
+    document
+        .getElementById("painel-carrinho")
+        .classList.add("ativo");
+}
+
+
+// ========================================
+// FECHAR CARRINHO
+// ========================================
+
+function fecharCarrinho() {
+
+    document
+        .getElementById("painel-carrinho")
+        .classList.remove("ativo");
+}
+
+
+// ========================================
+// FINALIZAR COMPRA
+// ========================================
 
 function finalizarCompra() {
 
@@ -98,97 +192,355 @@ function finalizarCompra() {
         return;
     }
 
-    mostrarNotificacao("Compra finalizada com sucesso ✅");
+    abrirFinalizacao();
 
-    carrinho = [];
+    atualizarResumoCompra();
 }
 
-/* =========================
-   PESQUISAR PRODUTO
-========================= */
 
-function pesquisarProduto() {
+// ========================================
+// ABRIR FINALIZAÇÃO
+// ========================================
 
-    let pesquisa = prompt("Digite o nome do produto:");
+function abrirFinalizacao() {
 
-    if (pesquisa === null || pesquisa === "") {
+    document
+        .getElementById("painel-finalizacao")
+        .classList.add("ativo");
+}
+
+
+// ========================================
+// FECHAR FINALIZAÇÃO
+// ========================================
+
+function fecharFinalizacao() {
+
+    document
+        .getElementById("painel-finalizacao")
+        .classList.remove("ativo");
+}
+
+
+// ========================================
+// RESUMO DA COMPRA
+// ========================================
+
+function atualizarResumoCompra() {
+
+    const resumo =
+        document.getElementById("resumo-compra");
+
+    const totalFinal =
+        document.getElementById("valor-final");
+
+    if (!resumo) return;
+
+    resumo.innerHTML = "";
+
+    let total = 0;
+
+    carrinho.forEach((produto, index) => {
+
+        total += produtos[produto].preco;
+
+        resumo.innerHTML += `
+
+            <div class="item-finalizacao">
+
+                <img 
+                    src="${produtos[produto].imagem}"
+                    class="miniatura-finalizacao"
+                >
+
+                <div class="texto-finalizacao">
+
+                    <h4>${produto}</h4>
+
+                    <p>
+                        R$ ${produtos[produto].preco.toFixed(2)}
+                    </p>
+
+                </div>
+
+                <button onclick="removerFinalizacao(${index})">
+                    X
+                </button>
+
+            </div>
+
+        `;
+    });
+
+    totalFinal.innerText = total.toFixed(2);
+}
+
+
+// ========================================
+// REMOVER FINALIZAÇÃO
+// ========================================
+
+function removerFinalizacao(index) {
+
+    carrinho.splice(index, 1);
+
+    atualizarCarrinho();
+
+    atualizarResumoCompra();
+
+    mostrarNotificacao("Produto removido!");
+}
+
+
+// ========================================
+// CONFIRMAR PEDIDO
+// ========================================
+
+function confirmarPedido() {
+
+    if (carrinho.length === 0) {
+
+        mostrarNotificacao("Seu carrinho está vazio!");
+
         return;
     }
 
-    let produtos = document.querySelectorAll(".produto");
+    let total = 0;
 
-    let encontrou = false;
+    carrinho.forEach(produto => {
 
-    produtos.forEach((produto) => {
+        total += produtos[produto].preco;
+    });
 
-        let nome = produto.querySelector("h3").innerText;
+    mostrarNotificacao(
+        "Pedido confirmado! Total: R$ " +
+        total.toFixed(2)
+    );
 
-        if (nome.toLowerCase().includes(pesquisa.toLowerCase())) {
+    carrinho = [];
+
+    atualizarCarrinho();
+
+    atualizarResumoCompra();
+
+    fecharFinalizacao();
+
+    fecharCarrinho();
+}
+
+
+// ========================================
+// NOTIFICAÇÃO
+// ========================================
+
+function mostrarNotificacao(texto) {
+
+    const notificacao =
+        document.getElementById("notificacao");
+
+    notificacao.innerText = texto;
+
+    notificacao.classList.add("mostrar");
+
+    setTimeout(() => {
+
+        notificacao.classList.remove("mostrar");
+
+    }, 3000);
+}
+
+
+// ========================================
+// PESQUISA
+// ========================================
+
+function filtrarEBuscar() {
+
+    const pesquisa =
+        document
+        .getElementById("input-busca")
+        .value
+        .toLowerCase();
+
+    const produtosHTML =
+        document.querySelectorAll(".produto");
+
+    produtosHTML.forEach(produto => {
+
+        const nome =
+            produto.querySelector("h3")
+            .innerText
+            .toLowerCase();
+
+        if (nome.includes(pesquisa)) {
 
             produto.style.display = "block";
-
-            encontrou = true;
 
         } else {
 
             produto.style.display = "none";
         }
-
     });
-
-    if (encontrou) {
-
-        mostrarNotificacao("Produto encontrado 🔍");
-
-    } else {
-
-        mostrarNotificacao("Nenhum produto encontrado ❌");
-    }
-
 }
 
-/* =========================
-   MOSTRAR TODOS
-========================= */
+
+// ========================================
+// FILTRO DE CATEGORIAS
+// ========================================
+
+function alternarAba(botao) {
+
+    const categoria =
+        botao.dataset.categoria;
+
+    const botoes =
+        document.querySelectorAll(".aba-btn");
+
+    botoes.forEach(btn => {
+
+        btn.classList.remove("ativa");
+    });
+
+    botao.classList.add("ativa");
+
+    const produtosHTML =
+        document.querySelectorAll(".produto");
+
+    produtosHTML.forEach(produto => {
+
+        if (categoria === "todos") {
+
+            produto.style.display = "block";
+        } else if (
+            produto.classList.contains(
+                "categoria-" + categoria
+            )
+        ) {
+
+            produto.style.display = "block";
+        } else {
+
+            produto.style.display = "none";
+        }
+    });
+}
+
+
+// ========================================
+// MENU RESPONSIVO
+// ========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const links =
+        document.querySelectorAll("nav a");
+
+    links.forEach(link => {
+
+        link.addEventListener("click", function(e) {
+
+            const href =
+                this.getAttribute("href");
+
+            if (href === "#") {
+
+                e.preventDefault();
+
+                window.scrollTo({
+
+                    top: 0,
+                    behavior: "smooth"
+                });
+            } else if (href.startsWith("#")) {
+
+                e.preventDefault();
+
+                const destino =
+                    document.querySelector(href);
+
+                if (destino) {
+
+                    destino.scrollIntoView({
+
+                        behavior: "smooth"
+                    });
+                }
+            }
+        });
+    });
+
+    // ========================================
+    // LOGO COM MESMA COR DO SITE
+    // ========================================
+
+    const logoTexto =
+        document.querySelector(".logo-area h1");
+
+    if (logoTexto) {
+
+        logoTexto.style.color = "#111111";
+    }
+
+    const spanLogo =
+        document.querySelector(".logo-area span");
+
+    if (spanLogo) {
+
+        spanLogo.style.color = "#ff3333";
+    }
+
+});
+
+
+// ========================================
+// BOTÃO IR PARA PRODUTOS
+// ========================================
+
+function irProdutos() {
+
+    document
+        .getElementById("produtos")
+        .scrollIntoView({
+
+            behavior: "smooth"
+        });
+}
+
+
+// ========================================
+// MOSTRAR TODOS
+// ========================================
 
 function mostrarTodos() {
 
-    let produtos = document.querySelectorAll(".produto");
+    const produtosHTML =
+        document.querySelectorAll(".produto");
 
-    produtos.forEach((produto) => {
+    produtosHTML.forEach(produto => {
 
         produto.style.display = "block";
-
     });
 
-    mostrarNotificacao("Todos os produtos exibidos 📦");
+    document.getElementById("input-busca").value = "";
 }
 
-/* =========================
-   FAVORITAR
-========================= */
 
-function favoritar(botao) {
+// ========================================
+// ABRIR FECHAR MENU MOBILE
+// ========================================
 
-    if (botao.innerHTML == "🤍") {
+function abrirMenu() {
 
-        botao.innerHTML = "❤️";
-
-        mostrarNotificacao("Produto favoritado ❤️");
-
-    } else {
-
-        botao.innerHTML = "🤍";
-
-        mostrarNotificacao("Produto removido dos favoritos");
-    }
+    document
+        .querySelector("nav")
+        .classList.toggle("menu-ativo");
 }
 
-/* =========================
-   LOADING
-========================= */
 
-window.onload = function() {
+// ========================================
+// INICIAR
+// ========================================
 
-    mostrarNotificacao("White Lab carregado 🔥");
-}
+atualizarCarrinho();
+
+atualizarResumoCompra();

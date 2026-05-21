@@ -20,7 +20,6 @@
 
         <div class="logo-area">
 
-            <!-- LOGO -->
             <img src="logo.jpeg" alt="Logo White Lab">
 
             <h1>
@@ -39,6 +38,17 @@
             <a href="#contato">Contato</a>
 
         </nav>
+
+        <!-- CARRINHO -->
+        <div class="carrinho-topo" onclick="abrirCarrinho()">
+
+            🛒 Carrinho
+
+            <span id="contador-carrinho">
+                0
+            </span>
+
+        </div>
 
     </header>
 
@@ -59,36 +69,56 @@
 
     </section>
 
-    <!-- BOTÕES -->
-    <section class="acoes">
+    <!-- CONTROLE -->
+    <div class="controle-produtos">
 
-        <button onclick="pesquisarProduto()">
-            🔍 Pesquisar Produto
-        </button>
+        <!-- PESQUISA -->
+        <div class="busca-container">
 
-        <button onclick="mostrarTodos()">
-            📦 Mostrar Todos
-        </button>
+            <input type="text" id="input-busca" placeholder="O que você está procurando hoje?..." oninput="filtrarEBuscar()">
 
-        <button onclick="limparCarrinho()">
-            🗑 Limpar Carrinho
-        </button>
+            <span class="icone-busca">
+                🔍
+            </span>
 
-        <button onclick="finalizarCompra()">
-            💳 Finalizar Compra
-        </button>
+        </div>
 
-    </section>
+        <!-- BOTÕES -->
+        <section class="acoes">
+
+            <button class="aba-btn ativa" data-categoria="todos" onclick="alternarAba(this)">
+                📦 Mostrar Todos
+            </button>
+
+            <button class="aba-btn" data-categoria="suplementos" onclick="alternarAba(this)">
+                💪 Suplementos
+            </button>
+
+            <button class="aba-btn" data-categoria="energia" onclick="alternarAba(this)">
+                ⚡ Energia
+            </button>
+
+            <button class="aba-btn" data-categoria="snacks" onclick="alternarAba(this)">
+                🍫 Snacks
+            </button>
+
+            <button onclick="limparCarrinho()">
+                🗑 Limpar Carrinho
+            </button>
+
+            <button onclick="abrirCarrinho()">
+                🛒 Abrir Carrinho
+            </button>
+
+        </section>
+
+    </div>
 
     <!-- PRODUTOS -->
     <section class="produtos" id="produtos">
 
         <!-- WHEY -->
-        <div class="produto">
-
-            <button class="favorito" onclick="favoritar(this)">
-                🤍
-            </button>
+        <div class="produto categoria-suplementos">
 
             <img src="whey.jpeg" alt="Whey Protein">
 
@@ -100,18 +130,22 @@
                 Suplemento proteico premium para ganho muscular.
             </p>
 
-            <button onclick="comprar('Whey Protein')">
-                Comprar
-            </button>
+            <span class="preco">
+                R$ 129,90
+            </span>
+
+            <div class="compra-container">
+
+                <button class="btn-comprar" onclick="comprar('Whey Protein', 129.90)">
+                    Comprar
+                </button>
+
+            </div>
 
         </div>
 
         <!-- BCAA -->
-        <div class="produto">
-
-            <button class="favorito" onclick="favoritar(this)">
-                🤍
-            </button>
+        <div class="produto categoria-suplementos">
 
             <img src="bcaa.jpeg" alt="BCAA">
 
@@ -123,18 +157,22 @@
                 Recuperação muscular avançada para seus treinos.
             </p>
 
-            <button onclick="comprar('BCAA')">
-                Comprar
-            </button>
+            <span class="preco">
+                R$ 89,90
+            </span>
+
+            <div class="compra-container">
+
+                <button class="btn-comprar" onclick="comprar('BCAA', 89.90)">
+                    Comprar
+                </button>
+
+            </div>
 
         </div>
 
-        <!-- PRÉ TREINO -->
-        <div class="produto">
-
-            <button class="favorito" onclick="favoritar(this)">
-                🤍
-            </button>
+        <!-- PRE TREINO -->
+        <div class="produto categoria-energia">
 
             <img src="pretreino.jpeg" alt="Pré Treino">
 
@@ -146,18 +184,22 @@
                 Energia máxima e foco total para o treino.
             </p>
 
-            <button onclick="comprar('Pré-Treino')">
-                Comprar
-            </button>
+            <span class="preco">
+                R$ 99,90
+            </span>
+
+            <div class="compra-container">
+
+                <button class="btn-comprar" onclick="comprar('Pré-Treino', 99.90)">
+                    Comprar
+                </button>
+
+            </div>
 
         </div>
 
         <!-- BARRINHA -->
-        <div class="produto">
-
-            <button class="favorito" onclick="favoritar(this)">
-                🤍
-            </button>
+        <div class="produto categoria-snacks">
 
             <img src="barrinha.jpeg" alt="Barrinha">
 
@@ -169,18 +211,22 @@
                 Snack saudável e nutritivo para o dia.
             </p>
 
-            <button onclick="comprar('Barrinha Proteica')">
-                Comprar
-            </button>
+            <span class="preco">
+                R$ 14,90
+            </span>
+
+            <div class="compra-container">
+
+                <button class="btn-comprar" onclick="comprar('Barrinha Proteica', 14.90)">
+                    Comprar
+                </button>
+
+            </div>
 
         </div>
 
         <!-- CREATINA -->
-        <div class="produto">
-
-            <button class="favorito" onclick="favoritar(this)">
-                🤍
-            </button>
+        <div class="produto categoria-energia">
 
             <img src="creatina.jpeg" alt="Creatina">
 
@@ -192,18 +238,22 @@
                 Mais força e desempenho em todos os exercícios.
             </p>
 
-            <button onclick="comprar('Creatina')">
-                Comprar
-            </button>
+            <span class="preco">
+                R$ 119,90
+            </span>
+
+            <div class="compra-container">
+
+                <button class="btn-comprar" onclick="comprar('Creatina', 119.90)">
+                    Comprar
+                </button>
+
+            </div>
 
         </div>
 
         <!-- GLUTAMINA -->
-        <div class="produto">
-
-            <button class="favorito" onclick="favoritar(this)">
-                🤍
-            </button>
+        <div class="produto categoria-suplementos">
 
             <img src="glutamina.jpeg" alt="Glutamina">
 
@@ -215,9 +265,17 @@
                 Auxilia na recuperação muscular e imunidade.
             </p>
 
-            <button onclick="comprar('Glutamina')">
-                Comprar
-            </button>
+            <span class="preco">
+                R$ 79,90
+            </span>
+
+            <div class="compra-container">
+
+                <button class="btn-comprar" onclick="comprar('Glutamina', 79.90)">
+                    Comprar
+                </button>
+
+            </div>
 
         </div>
 
@@ -236,6 +294,48 @@
 
     </section>
 
+    <!-- CARRINHO LATERAL -->
+    <div class="painel-carrinho" id="painel-carrinho">
+
+        <div class="topo-carrinho">
+
+            <h2>
+                Seu Carrinho
+            </h2>
+
+            <button onclick="fecharCarrinho()">
+                ✖
+            </button>
+
+        </div>
+
+        <!-- LISTA -->
+        <div id="lista-carrinho">
+
+        </div>
+
+        <!-- TOTAL -->
+        <div class="rodape-carrinho">
+
+            <h3>
+                Total:
+                <span id="total-carrinho">
+                    R$ 0,00
+                </span>
+            </h3>
+
+            <button onclick="finalizarCompra()">
+                Finalizar Compra
+            </button>
+
+            <button onclick="limparCarrinho()">
+                Limpar Carrinho
+            </button>
+
+        </div>
+
+    </div>
+
     <!-- FOOTER -->
     <footer id="contato">
 
@@ -244,7 +344,7 @@
         </h3>
 
         <p>
-            © 2025 Todos os direitos reservados.
+            © 2026 Todos os direitos reservados.
         </p>
 
         <p>
